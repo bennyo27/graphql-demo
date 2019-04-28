@@ -31,7 +31,13 @@ const UserType= new GraphQLObjectType({
     name: "User",
     fields: () => ({
         id: {type: GraphQLID },
-        name: {type: GraphQLString }
+        name: {type: GraphQLString },
+        reviews: {
+            type: ReviewType,
+            resolve(parent, args){
+                return _.find(reviews, {userId: parent.id})
+            }
+        }
     })
 });
 
