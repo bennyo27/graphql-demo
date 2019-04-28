@@ -21,9 +21,9 @@ var users = [
 
 // dummy data reviews
 var reviews = [
-    {name: "Review One", review: 5, id: "1"},
-    {name: "Review Two", review: 1, id: "2"},
-    {name: "Review Three", review: 4, id: "3"},
+    {name: "Review One", review: 5, id: "1", userId: "1"},
+    {name: "Review Two", review: 1, id: "2", userId: "2"},
+    {name: "Review Three", review: 4, id: "3", userId: "3"},
 ]
 
 // create type of object User
@@ -41,7 +41,14 @@ const ReviewType = new GraphQLObjectType({
     fields: () => ({
         id: {type: GraphQLID},
         name: {type: GraphQLString},
-        review: {type: GraphQLInt}
+        review: {type: GraphQLInt},
+        // connect the review to its user
+        user: {
+            type: UserType,
+            resolve(parent, args){
+                return _.find(users, {id: parent.userId})
+            }
+        }
     })
 })
 
