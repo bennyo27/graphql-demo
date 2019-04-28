@@ -10,6 +10,9 @@ const app = express();
 // bind express with graphql
 app.use("/graphql", graphqlHTTP({
     // pass in a schema property
+    schema,
+    // turn on graphiql
+    graphiql: true
 }))
 
 // create server
